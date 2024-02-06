@@ -13,7 +13,7 @@ db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
 @FileStream.on_message(filters.private& (filters.document| filters.video),group=4,)
 async def private_receive_handler(bot: Client, message: Message):
-    up=await message.reply_text("generating streaming link")
+    up=await message.reply_text("generating streaming link ⚡")
     
     if Telegram.FORCE_SUB:
         if not await is_user_joined(bot, message):
@@ -38,8 +38,8 @@ async def private_receive_handler(bot: Client, message: Message):
     finally:
         await up.delete()
         await is_user_exist(bot, message)
-        await pst.delete()
         await asyncio.sleep(600)
+        await pst.delete()
 
 
 # @FileStream.on_message(
