@@ -35,51 +35,51 @@ async def start(bot: Client, message: Message):
                 disable_web_page_preview=True,
                 reply_markup=BUTTON.START_BUTTONS
             )
-    else:
-        if "stream_" in message.text:
-            try:
-                file_check = await db.get_file(usr_cmd)
-                file_id = str(file_check['_id'])
-                if file_id == usr_cmd:
-                    reply_markup, stream_text = await gen_linkx(m=message, _id=file_id,
-                                                                name=[FileStream.username, FileStream.fname])
-                    await message.reply_text(
-                        text=stream_text,
-                        parse_mode=ParseMode.HTML,
-                        disable_web_page_preview=True,
-                        reply_markup=reply_markup,
-                        quote=True
-                    )
+    else: return
+        # if "stream_" in message.text:
+        #     try:
+        #         file_check = await db.get_file(usr_cmd)
+        #         file_id = str(file_check['_id'])
+        #         if file_id == usr_cmd:
+        #             reply_markup, stream_text = await gen_linkx(m=message, _id=file_id,
+        #                                                         name=[FileStream.username, FileStream.fname])
+        #             await message.reply_text(
+        #                 text=stream_text,
+        #                 parse_mode=ParseMode.HTML,
+        #                 disable_web_page_preview=True,
+        #                 reply_markup=reply_markup,
+        #                 quote=True
+        #             )
 
-            except FIleNotFound as e:
-                await message.reply_text("File Not Found")
-            except Exception as e:
-                await message.reply_text("Something Went Wrong")
-                logging.error(e)
+        #     except FIleNotFound as e:
+        #         await message.reply_text("File Not Found")
+        #     except Exception as e:
+        #         await message.reply_text("Something Went Wrong")
+        #         logging.error(e)
 
-        elif "file_" in message.text:
-            try:
-                file_check = await db.get_file(usr_cmd)
-                db_id = str(file_check['_id'])
-                file_id = file_check['file_id']
-                file_name = file_check['file_name']
-                if db_id == usr_cmd:
-                    filex = await message.reply_cached_media(file_id=file_id, caption=f'**{file_name}**')
-                    await asyncio.sleep(3600)
-                    try:
-                        await filex.delete()
-                        await message.delete()
-                    except Exception:
-                        pass
+        # elif "file_" in message.text:
+        #     try:
+        #         file_check = await db.get_file(usr_cmd)
+        #         db_id = str(file_check['_id'])
+        #         file_id = file_check['file_id']
+        #         file_name = file_check['file_name']
+        #         if db_id == usr_cmd:
+        #             filex = await message.reply_cached_media(file_id=file_id, caption=f'**{file_name}**')
+        #             await asyncio.sleep(3600)
+        #             try:
+        #                 await filex.delete()
+        #                 await message.delete()
+        #             except Exception:
+        #                 pass
 
-            except FIleNotFound as e:
-                await message.reply_text("**File Not Found**")
-            except Exception as e:
-                await message.reply_text("Something Went Wrong")
-                logging.error(e)
+        #     except FIleNotFound as e:
+        #         await message.reply_text("**File Not Found**")
+        #     except Exception as e:
+        #         await message.reply_text("Something Went Wrong")
+        #         logging.error(e)
 
-        else:
-            await message.reply_text(f"**Invalid Command**")
+        # else:
+        #     await message.reply_text(f"**Invalid Command**")
 
 # @FileStream.on_message(filters.private & filters.command(["about"]))
 # async def start(bot, message):
@@ -144,6 +144,6 @@ async def start(bot: Client, message: Message):
 #     file_list.append([InlineKeyboardButton("ᴄʟᴏsᴇ", callback_data="close")])
 #     await message.reply_photo(photo=Telegram.FILE_PIC,
 #                               caption="Total files: {}".format(total_files),
-                              reply_markup=InlineKeyboardMarkup(file_list))
+                              # reply_markup=InlineKeyboardMarkup(file_list))
 
 
