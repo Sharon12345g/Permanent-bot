@@ -7,6 +7,7 @@ from FileStream.utils.human_readable import humanbytes
 from FileStream.config import Telegram, Server
 from FileStream.bot import FileStream
 import asyncio
+import re
 from typing import (
     Union
 )
@@ -81,7 +82,10 @@ async def is_user_joined(bot, message: Message):
 
 async def gen_link(_id):
     file_info = await db.get_file(_id)
-    file_name = await process_text (file_info['file_name'])
+    try:
+        file_name = await process_text(str(file_info['file_name']))
+    except:
+        file_name = file_info['file_name']
     file_size = humanbytes(file_info['file_size'])
     mime_type = file_info['mime_type']
 
