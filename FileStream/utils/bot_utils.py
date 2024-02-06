@@ -204,8 +204,8 @@ async def verify_user(bot, message):
     # if not await is_user_authorized(message):
     #     return False
 
-    if await is_user_banned(message):
-        return False
+    # if await is_user_banned(message):
+    #     return False
 
     await is_user_exist(bot, message)
 
