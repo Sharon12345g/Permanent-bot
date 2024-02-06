@@ -10,6 +10,8 @@ class Telegram:
     DATABASE_URL = str(env.get('DATABASE_URL',"mongodb+srv://vegafiletolinkbot:vegafiletolinkbot@cluster0.knjtwz3.mongodb.net/?retryWrites=true&w=majority"))
     UPDATES_CHANNEL = str(env.get('UPDATES_CHANNEL', "vegamoviesx"))
     SESSION_NAME = str(env.get('SESSION_NAME', 'FileStream'))
+    FORCE_SUB_ID = env.get('FORCE_SUB_ID', None)
+    FORCE_SUB = env.get('FORCE_UPDATES_CHANNEL', False)
     FORCE_SUB_ID = env.get('FORCE_SUB_ID', "-1002086574998")
     FORCE_SUB = env.get('FORCE_UPDATES_CHANNEL', True)
     FORCE_SUB = True if str(FORCE_SUB).lower() == "true" else False
