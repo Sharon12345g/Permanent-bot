@@ -8,3 +8,5 @@ dnspython
 requests
 jinja2
 pyrogram
+bs4
+beautifulsoup4
