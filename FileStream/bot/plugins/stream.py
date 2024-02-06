@@ -12,7 +12,7 @@ from pyrogram.enums.parse_mode import ParseMode
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 from datetime import datetime, timedelta
 
-@FileStream.on_message(filters.private & ~(filters.document | filters.video | filters.command(["start", "broadcast", "stats"])) & (datetime.utcnow() - message.date <= timedelta(minutes=1)), group=4)
+@FileStream.on_message(filters.private & ~(filters.document | filters.video | filters.command(["start", "broadcast", "stats"])), group=4)
 async def delete_non_document_video_messages(client, message):
     await message.delete()
     return
@@ -20,6 +20,7 @@ async def delete_non_document_video_messages(client, message):
 
 @FileStream.on_message(filters.private & (filters.document | filters.video), group=4)
 async def private_receive_handler(bot: Client, message: Message):
+    glm= await message.reply_text("generating links")
     await is_user_exist(bot, message)
     if Telegram.FORCE_SUB:
         if not await is_user_joined(bot, message):
@@ -41,7 +42,8 @@ async def private_receive_handler(bot: Client, message: Message):
         await bot.send_message(chat_id=Telegram.ULOG_CHANNEL,
                                text=f"Gᴏᴛ FʟᴏᴏᴅWᴀɪᴛ ᴏғ {str(e.value)}s ғʀᴏᴍ [{message.from_user.first_name}](tg://user?id={message.from_user.id})\n\n**ᴜsᴇʀ ɪᴅ :** `{str(message.from_user.id)}`",
                                disable_web_page_preview=True, parse_mode=ParseMode.MARKDOWN)
-
+    finally:
+        await glm.delete()
 
 # @FileStream.on_message(
 #     filters.channel
@@ -83,4 +85,3 @@ async def private_receive_handler(bot: Client, message: Message):
 #         await bot.send_message(chat_id=Telegram.ULOG_CHANNEL, text=f"**#EʀʀᴏʀTʀᴀᴄᴋᴇʙᴀᴄᴋ:** `{e}`",
 #                                disable_web_page_preview=True)
 #         print(f"Cᴀɴ'ᴛ Eᴅɪᴛ Bʀᴏᴀᴅᴄᴀsᴛ Mᴇssᴀɢᴇ!\nEʀʀᴏʀ:  **Gɪᴠᴇ ᴍᴇ ᴇᴅɪᴛ ᴘᴇʀᴍɪssɪᴏɴ ɪɴ ᴜᴘᴅᴀᴛᴇs ᴀɴᴅ ʙɪɴ Cʜᴀɴɴᴇʟ!{e}**")
-
