@@ -13,12 +13,8 @@ db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
 @FileStream.on_message(filters.private& (filters.document| filters.video),group=4,)
 async def private_receive_handler(bot: Client, message: Message):
-    if not await is_user_authorized(message):
-        return
-    if await is_user_banned(message):
-        return
-
-    await is_user_exist(bot, message)
+    up=await message.reply_text("generating streaming link")
+    
     if Telegram.FORCE_SUB:
         if not await is_user_joined(bot, message):
             return
@@ -39,21 +35,24 @@ async def private_receive_handler(bot: Client, message: Message):
         await bot.send_message(chat_id=Telegram.ULOG_CHANNEL,
                                text=f"Gᴏᴛ FʟᴏᴏᴅWᴀɪᴛ ᴏғ {str(e.value)}s ғʀᴏᴍ [{message.from_user.first_name}](tg://user?id={message.from_user.id})\n\n**ᴜsᴇʀ ɪᴅ :** `{str(message.from_user.id)}`",
                                disable_web_page_preview=True, parse_mode=ParseMode.MARKDOWN)
+    finally:
+        await up.delete()
+        await is_user_exist(bot, message)
 
 
-@FileStream.on_message(
-    filters.channel
-    & ~filters.forwarded
-    & ~filters.media_group
-    & (
-            filters.document
-            | filters.video
-            | filters.video_note
-            | filters.audio
-            | filters.voice
-            | filters.photo
-    )
-)
+# @FileStream.on_message(
+#     filters.channel
+#     & ~filters.forwarded
+#     & ~filters.media_group
+#     & (
+#             filters.document
+#             | filters.video
+#             | filters.video_note
+#             | filters.audio
+#             | filters.voice
+#             | filters.photo
+#     )
+# )
 # async def channel_receive_handler(bot: Client, message: Message):
 #     if await is_channel_banned(bot, message):
 #         return
