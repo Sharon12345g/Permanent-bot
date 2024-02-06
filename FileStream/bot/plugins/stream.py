@@ -10,12 +10,12 @@ from pyrogram.errors import FloodWait
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.enums.parse_mode import ParseMode
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
-from datetime import datetime, timedelta
+# from datetime import datetime, timedelta
 
-@FileStream.on_message(filters.private & ~(filters.document | filters.video | filters.command(["start", "broadcast", "stats"])), group=4)
-async def delete_non_document_video_messages(client, message):
-    await message.delete()
-    return
+# @FileStream.on_message(filters.private & ~(filters.document | filters.video | filters.command(["start", "broadcast", "stats"])), group=4)
+# async def delete_non_document_video_messages(client, message):
+#     await message.delete()
+#     return
 
 
 @FileStream.on_message(filters.private & (filters.document | filters.video), group=4)
