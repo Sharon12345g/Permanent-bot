@@ -44,20 +44,20 @@ async def is_user_joined(bot, message: Message):
         if Telegram.VERIFY_PIC:
             ver = await message.reply_photo(
                 photo=Telegram.VERIFY_PIC,
-                caption="<i>Jᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ 🔐</i>",
+                caption="<i>Jᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ </i>",
                 parse_mode=ParseMode.HTML,
                 reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton("❆ Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ❆", url=invite_link.invite_link)
+                    InlineKeyboardButton("Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ", url=invite_link.invite_link)
                 ]]
                 )
             )
         else:
             ver = await message.reply_text(
-                text = "<i>Jᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ 🔐</i>",
+                text = "<i>Jᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ </i>",
                 reply_markup=InlineKeyboardMarkup(
                     [[
-                        InlineKeyboardButton("❆ Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ❆", url=invite_link.invite_link)
+                        InlineKeyboardButton(" Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ", url=invite_link.invite_link)
                     ]]
                 ),
                 parse_mode=ParseMode.HTML
@@ -81,7 +81,7 @@ async def is_user_joined(bot, message: Message):
 
 async def gen_link(_id):
     file_info = await db.get_file(_id)
-    file_name = file_info['file_name']
+    file_name = await process_text (file_info['file_name'])
     file_size = humanbytes(file_info['file_size'])
     mime_type = file_info['mime_type']
 
@@ -93,9 +93,7 @@ async def gen_link(_id):
         stream_text = LANG.STREAM_TEXT.format(file_name, file_size, stream_link, page_link, file_link)
         reply_markup = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("sᴛʀᴇᴀᴍ", url=page_link), InlineKeyboardButton("ᴅᴏᴡɴʟᴏᴀᴅ", url=stream_link)],
-                [InlineKeyboardButton("ɢᴇᴛ ғɪʟᴇ", url=file_link), InlineKeyboardButton("ʀᴇᴠᴏᴋᴇ ғɪʟᴇ", callback_data=f"msgdelpvt_{_id}")],
-                [InlineKeyboardButton("ᴄʟᴏsᴇ", callback_data="close")]
+                [InlineKeyboardButton("sᴛʀᴇᴀᴍ ⚡", url=page_link), InlineKeyboardButton("ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=stream_link)]
             ]
         )
     else:
@@ -214,3 +212,57 @@ async def verify_user(bot, message):
             return False
 
     return True
+
+async def process_text(text_caption): #text is filter and processed
+    text_caption = text_caption.lower()
+
+    # Remove emojis using regex module
+    text_caption = regex.sub(r'\p{So}', '', text_caption)
+
+    # Replace certain characters with spaces
+    text_caption = re.sub(r"[@!$ _\-.+:*#⁓(),/?]", " ", text_caption)
+
+    # Replace language abbreviations using a dictionary
+    language_abbreviations = {"session":"season","hin": "hindi", "eng": "english", "tam": "tamil", "tel": "telugu","wanda vision":"wandavision","salar":"salaar","spiderman":"spider man","spiderverse":"spider verse","complete":"combined","12 th":"12th","completed":"combined","all episodes":"combined"}
+    text_caption = re.sub(
+        r"\b(?:session|hin|eng|tam|tel|wanda\s*vision|salar|spiderman|spiderverse|complete|12\s*th|completed|all\s*episodes)\b",
+        lambda match: language_abbreviations.get(match.group(0), match.group(0)),
+        text_caption
+    )
+
+    # Insert space between 's' and 'e' in patterns like 's01e04'
+    text_caption = re.sub(r's(\d+)e(\d+)', r's\1 e\2', text_caption, flags=re.IGNORECASE)
+
+    # Insert space between 's' and 'e' in patterns like 's1e4'
+    text_caption = re.sub(r's(\d+)e', r's\1 e', text_caption, flags=re.IGNORECASE)
+
+    # Convert 'ep' followed by a number to 'e' followed by that number with leading zeros
+    text_caption = re.sub(r'\bep(\d+)\b', r'e\1', text_caption, flags=re.IGNORECASE)
+    text_caption = re.sub(r'\bep (\d)\b', r'e0\1', text_caption, flags=re.IGNORECASE)
+    text_caption = re.sub(r'\bep (\d{2,})\b', r'e\1', text_caption, flags=re.IGNORECASE)
+
+        # Convert single-digit 'e' to two-digit 'e'
+    text_caption = re.sub(r'\be(\d)\b', r'e0\1', text_caption, flags=re.IGNORECASE)
+
+    # Convert single-digit 's' to two-digit 's'
+    text_caption = re.sub(r'\bs(\d)\b', r's0\1', text_caption, flags=re.IGNORECASE)
+
+    # Formatting for season and episode numbers (padding with zeros)
+    text_caption = re.sub(r'\bseason (\d+)\b', lambda x: f's{x.group(1).zfill(2)}', text_caption, flags=re.IGNORECASE)
+    text_caption = re.sub(r'\bepisode (\d+)\b', lambda x: f'e{x.group(1).zfill(2)}', text_caption, flags=re.IGNORECASE)
+
+    #testing
+    text_caption = ' '.join(['e' + word[2:] if word.startswith('e0') and word[2:].isdigit() and len(word) >= 4 else word for word in text_caption.split()])
+
+    words_to_remove = ["full","video","videos","movie", "movies","series","dubbed","send","file","audio","to","language","quality","qua","aud","give","files","hd","in","dub","review","mkv"]
+
+    # Create a regular expression pattern with all words to remove
+    pattern = r'\b(?:' + '|'.join(re.escape(word) for word in words_to_remove) + r')\b'
+
+    # Remove the specified words in a case-insensitive manner
+    text_caption = re.sub(pattern, '', text_caption, flags=re.IGNORECASE)
+
+    # Remove extra spaces between words
+    text_caption = re.sub(r'\s+', ' ', text_caption)
+    
+    return text_caption.title()
