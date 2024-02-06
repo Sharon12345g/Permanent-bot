@@ -4,7 +4,7 @@ from FileStream.config import Telegram
 class LANG(object):
 
     START_TEXT = """
-    <B>hey,{}\n\n </b><i>I'm a straightforward file-to-link bot that allows you to stream or quickly download any video.</i>"""
+    <B>hey,{}\n\n </b>I'm a straightforward file-to-link bot that allows you to stream or quickly download any video."""
 
     HELP_TEXT = """
 <b>- ᴀᴅᴅ ᴍᴇ ᴀs ᴀɴ ᴀᴅᴍɪɴ ᴏɴ ᴛʜᴇ ᴄʜᴀɴɴᴇʟ</b>
@@ -42,7 +42,7 @@ class LANG(object):
 class BUTTON(object):
     START_BUTTONS = InlineKeyboardMarkup(
         [[
-            InlineKeyboardButton("⎚ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ", url=f'https://t.me/{Telegram.UPDATES_CHANNEL}'),
+            InlineKeyboardButton("⎚ ᴜᴘᴅᴀᴛᴇs", url=f'https://t.me/{Telegram.UPDATES_CHANNEL}'),
             InlineKeyboardButton('‹ ᴄʟᴏsᴇ', callback_data='close')
         ]     
         ]
