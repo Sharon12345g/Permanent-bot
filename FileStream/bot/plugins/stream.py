@@ -29,6 +29,7 @@ async def private_receive_handler(bot: Client, message: Message):
             reply_markup=reply_markup,
             quote=True
         )
+    await message.delete()
     except FloodWait as e:
         print(f"Sleeping for {str(e.value)}s")
         await asyncio.sleep(e.value)
