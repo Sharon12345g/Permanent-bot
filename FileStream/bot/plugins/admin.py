@@ -28,7 +28,7 @@ async def sts(c: Client, m: Message):
 
 @FileStream.on_message(filters.command("bots") & filters.private)
 async def our_bots(c: Client, m: Message):
-    await m.reply_text(text=f"""**My Bots\n\nBot 1: @VegaMoviesiBot\nBot 2: @VegaMoviesXBot \n3.@FileToLinkiBot
+    await m.reply_text(text=f"""**Our Other Bots\n\nBot 1: @VegaMoviesiBot\nBot 2: @VegaMoviesXBot \nBot 3: @FileToLinkiBot
     **"""
                        , parse_mode=ParseMode.MARKDOWN, quote=True)
 
