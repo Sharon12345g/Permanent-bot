@@ -26,6 +26,11 @@ async def sts(c: Client, m: Message):
 **Total Links Generated: ** `{await db.total_files()}`"""
                        , parse_mode=ParseMode.MARKDOWN, quote=True)
 
+@FileStream.on_message(filters.command("bots") & filters.private & filters.user(Telegram.OWNER_ID))
+async def our_bots(c: Client, m: Message):
+    await m.reply_text(text=f"""<b>My Bots\n\nBot 1: @VegaMoviesiBot\nBot 2: @VegaMoviesXBot 3.@FileToLinkiBot</b>"""
+                       , parse_mode=ParseMode.MARKDOWN, quote=True)
+
 
 # @FileStream.on_message(filters.command("ban") & filters.private & filters.user(Telegram.OWNER_ID))
 # async def sts(b, m: Message):
