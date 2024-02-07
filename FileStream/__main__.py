@@ -62,7 +62,7 @@ async def start_services():
 
 async def cleanup():
     await server.cleanup()
-    await FileStream.stop()
+   
 
 if __name__ == "__main__":
     try:
@@ -73,5 +73,3 @@ if __name__ == "__main__":
         logging.error(traceback.format_exc())
     finally:
         loop.run_until_complete(cleanup())
-        loop.stop()
-        print("------------------------ Stopped Services ------------------------")
