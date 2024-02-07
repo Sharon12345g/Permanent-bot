@@ -19,7 +19,9 @@ async def private_receive_handler(bot: Client, message: Message):
         if not await is_user_joined(bot, message):
             return
     try:
-        await message.reply_text(f"{message}")
+        try:
+            await message.reply_text(f"{message}")
+        except: pass
         inserted_id = await db.add_file(get_file_info(message))
         await get_file_ids(False, inserted_id, multi_clients, message)
         reply_markup, stream_text = await gen_link(_id=inserted_id)
