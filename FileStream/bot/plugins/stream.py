@@ -40,9 +40,9 @@ async def private_receive_handler(bot: Client, message: Message):
 
     finally:
         await up.delete()
-        await message.delete()
         await is_user_exist(bot, message)
-        await asyncio.sleep(600)
+        await asyncio.sleep(1500)
+        await message.delete()
         await pst.delete()
 
 
