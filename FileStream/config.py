@@ -35,3 +35,4 @@ class Server:
     URL = "http{}://{}{}/".format(
         "s" if HAS_SSL else "", FQDN, "" if NO_PORT else ""
     )
+        KEEP_ALIVE = str(env.get("KEEP_ALIVE", "1").lower()) in ("1", "true", "t", "yes", "y")
