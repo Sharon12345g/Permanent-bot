@@ -10,7 +10,6 @@ from pyrogram import idle
 from FileStream.bot import FileStream
 from FileStream.server import web_server
 from FileStream.bot.clients import initialize_clients
-import requests
 
 logging.basicConfig(
     level=logging.INFO,
@@ -26,13 +25,6 @@ logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 server = web.AppRunner(web_server())
 
 loop = asyncio.get_event_loop()
-
-async def ping_heroku_app():
-    try:
-        response = requests.get('https://vega-39afb122a849.herokuapp.com/')
-        print('Ping sent to Heroku app!')
-    except Exception as e:
-        print('Error while pinging Heroku app:', e)
 
 async def start_services():
     print()
@@ -66,11 +58,6 @@ async def start_services():
         print("                        DC ID =>> {}".format(str(bot_info.dc_id)))
     print(" URL =>> {}".format(Server.URL))
     print("------------------------------------------------------------------")
-    while True:
-        await ping_heroku_app()
-        # Ping every 20 minutes (1200 seconds)
-        await asyncio.sleep(1200)
-        
     await idle()
 
 async def cleanup():
