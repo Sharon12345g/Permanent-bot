@@ -99,7 +99,7 @@ async def gen_link(_id):
         stream_text = LANG.STREAM_TEXT.format(file_name, file_size, stream_link, page_link)
         reply_markup = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("📂 ғᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ ", url=stream_link),InlineKeyboardButton("⚡ sᴛʀᴇᴀᴍ", url=page_link) ]
+                [InlineKeyboardButton("ᴅᴏᴡɴʟᴏᴀᴅ 📂", url=stream_link),InlineKeyboardButton("sᴛʀᴇᴀᴍ ⚡", url=page_link) ]
             ]
         )
     else:
