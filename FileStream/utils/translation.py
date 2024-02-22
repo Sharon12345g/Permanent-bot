@@ -41,8 +41,8 @@ class LANG(object):
 class BUTTON(object):
     START_BUTTONS = InlineKeyboardMarkup(
         [[
-            InlineKeyboardButton("⎚ ᴜᴘᴅᴀᴛᴇs", url=f'https://t.me/{Telegram.UPDATES_CHANNEL}'),
-            InlineKeyboardButton('‹ ᴄʟᴏsᴇ', callback_data='close')
+            InlineKeyboardButton("ᴜᴘᴅᴀᴛᴇs", url=f'https://t.me/{Telegram.UPDATES_CHANNEL}'),
+            InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
         ]     
         ]
     )
