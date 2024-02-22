@@ -19,18 +19,18 @@ db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 broadcast_ids = {}
 
 
-# @FileStream.on_message(filters.command("status") & filters.private & filters.user(Telegram.OWNER_ID))
-# async def sts(c: Client, m: Message):
-#     await m.reply_text(text=f"""**Total Users in DB:** `{await db.total_users_count()}`
-# **Banned Users in DB:** `{await db.total_banned_users_count()}`
-# **Total Links Generated: ** `{await db.total_files()}`"""
-#                        , parse_mode=ParseMode.MARKDOWN, quote=True)
-
-@FileStream.on_message(filters.command("bots") & filters.private)
-async def our_bots(c: Client, m: Message):
-    await m.reply_text(text=f"""**Our Other Bots\n\nBot 1: @VegaMoviesiBot\nBot 2: @VegaMoviesXBot \nBot 3: @File2LinkiBot
-    **"""
+@FileStream.on_message(filters.command("status") & filters.private & filters.user(Telegram.OWNER_ID))
+async def sts(c: Client, m: Message):
+    await m.reply_text(text=f"""**Total Users in DB:** `{await db.total_users_count()}`
+**Banned Users in DB:** `{await db.total_banned_users_count()}`
+**Total Links Generated: ** `{await db.total_files()}`"""
                        , parse_mode=ParseMode.MARKDOWN, quote=True)
+
+# @FileStream.on_message(filters.command("bots") & filters.private)
+# async def our_bots(c: Client, m: Message):
+#     await m.reply_text(text=f"""**Our Other Bots\n\nBot 1: @VegaMoviesiBot\nBot 2: @VegaMoviesXBot \nBot 3: @File2LinkiBot
+#     **"""
+#                        , parse_mode=ParseMode.MARKDOWN, quote=True)
 
 
 # @FileStream.on_message(filters.command("ban") & filters.private & filters.user(Telegram.OWNER_ID))
