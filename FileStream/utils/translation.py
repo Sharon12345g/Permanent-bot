@@ -4,7 +4,7 @@ from FileStream.config import Telegram
 class LANG(object):
 
     START_TEXT = """
-    <B>hey,{}\n\n</b>ɪ ᴀᴍ ᴀ sᴛʀᴀɪɢʜᴛ ғᴏʀᴡᴀʀᴅ ғɪʟᴇ-ᴛᴏ-ʟɪɴᴋ ʙᴏᴛ ᴛʜᴀᴛ ᴀʟʟᴏᴡs ʏᴏᴜ ᴛᴏ sᴛʀᴇᴀᴍ ᴏʀ ϙᴜɪᴄᴋʟʏ ᴅᴏᴡɴʟᴏᴀᴅ ᴀɴʏ ᴠɪᴅᴇᴏ ғɪʟᴇ.\n\n<b>ᴍᴀᴅᴇ ʙʏ:<a href='https://telegram.me/Cinearcade'> ᴄɪɴᴇᴀʀᴄᴀᴅᴇ</a></b>"""
+    <B>hey,{}\n\n</b>ɪ ᴀᴍ ᴀ sᴛʀᴀɪɢʜᴛ ғᴏʀᴡᴀʀᴅ ғɪʟᴇ-ᴛᴏ-ʟɪɴᴋ ʙᴏᴛ ᴛʜᴀᴛ ᴀʟʟᴏᴡs ʏᴏᴜ ᴛᴏ sᴛʀᴇᴀᴍ ᴏʀ ϙᴜɪᴄᴋʟʏ ᴅᴏᴡɴʟᴏᴀᴅ ᴀɴʏ ᴠɪᴅᴇᴏ ғɪʟᴇ.\n\n<b>ᴍᴀᴅᴇ ʙʏ ❤️ :<a href='https://telegram.me/Cinearcade'> ᴄɪɴᴇᴀʀᴄᴀᴅᴇ</a></b>"""
 
     HELP_TEXT = """
 <b>- ᴀᴅᴅ ᴍᴇ ᴀs ᴀɴ ᴀᴅᴍɪɴ ᴏɴ ᴛʜᴇ ᴄʜᴀɴɴᴇʟ</b>
