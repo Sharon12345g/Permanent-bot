@@ -23,17 +23,17 @@ class LANG(object):
 """
 
     STREAM_TEXT = """
-<b>[ DOWNLOAD / STREAM ]\n
+<b>[ DOWNLOAD / STREAM ]
 ⌬──━━━━━━━━━━──⌬
-📗 Fɪʟᴇ Nᴀᴍᴇ ➜ {}
+📗 Fɪʟᴇ Nᴀᴍᴇ ➜ {}\n
 📒 Fɪʟᴇ Sɪᴢᴇ ➜ {}\n
 ♻️ Dᴏᴡɴʟᴏᴀᴅ ➜ {}\n
 🌟 Sᴛʀᴇᴀᴍ ➜ {}</b>"""
 
     STREAM_TEXT_X = """
-<b>[ DOWNLOAD / STREAM ]\n
+<b>[ DOWNLOAD / STREAM ]
 ⌬──━━━━━━━━━━──⌬
-📗 Fɪʟᴇ Nᴀᴍᴇ ➜ {}
+📗 Fɪʟᴇ Nᴀᴍᴇ ➜ {}\n
 📒 Fɪʟᴇ Sɪᴢᴇ ➜ {}\n
 ♻️ Dᴏᴡɴʟᴏᴀᴅ ➜ {}\n
 🌟 Sᴛʀᴇᴀᴍ ➜ {}</b>"""
