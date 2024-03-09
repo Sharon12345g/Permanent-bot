@@ -23,14 +23,14 @@ class LANG(object):
     STREAM_TEXT = """
 <b>[ DOWNLOAD / STREAM ]
 ⌬──━━━━━━━━━━──⌬
-📗 Fɪʟᴇ [ {} ] ➜ {}\n
+📗 Fɪʟᴇ ➜ [ {} ] - {} \n
 ♻️ Dᴏᴡɴʟᴏᴀᴅ ➜ {}\n
 🌟 Sᴛʀᴇᴀᴍ ➜ {}</b>"""
 
     STREAM_TEXT_X = """
 <b>[ DOWNLOAD / STREAM ]
 ⌬──━━━━━━━━━━──⌬
-📗 Fɪʟᴇ [ {} ] ➜ {}\n
+📗 Fɪʟᴇ ➜ [ {} ] - {} \n
 ♻️ Dᴏᴡɴʟᴏᴀᴅ ➜ {}\n
 🌟 Sᴛʀᴇᴀᴍ ➜ {}</b>"""
 
