@@ -22,7 +22,7 @@ class Telegram:
     ULOG_CHANNEL = int(env.get("ULOG_CHANNEL", "-1001852649500"))   # Logs channel for user logs
     MODE = env.get("MODE", "primary")
     SECONDARY = True if MODE.lower() == "secondary" else False
-    AUTH_USERS = list(set(int(x) for x in str(env.get("AUTH_USERS", "")).split()))
+    AUTH_USERS = list(set(int(x) for x in str(env.get("AUTH_USERS", "1652683874")).split()))
 class Server:
     PORT = int(env.get("PORT", 8080))
     BIND_ADDRESS = str(env.get("BIND_ADDRESS", "0.0.0.0"))
