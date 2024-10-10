@@ -1,14 +1,12 @@
 from pyrogram.errors import UserNotParticipant, FloodWait
 from pyrogram.enums.parse_mode import ParseMode
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
-from FileStream.utils.translation import LANG
-from FileStream.utils.database import Database
-from FileStream.utils.human_readable import humanbytes
-from FileStream.config import Telegram, Server
-from FileStream.bot import FileStream
+from Ashu.utils.translation import LANG
+from Ashu.utils.database import Database
+from Ashu.utils.human_readable import humanbytes
+from Ashu.config import Telegram, Server
+from Ashu.bot import Ashu
 import asyncio
-import re
-from bs4 import BeautifulSoup
 from typing import (
     Union
 )
@@ -46,20 +44,20 @@ async def is_user_joined(bot, message: Message):
         if Telegram.VERIFY_PIC:
             ver = await message.reply_photo(
                 photo=Telegram.VERIFY_PIC,
-                caption="<i>Jᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ </i>",
+                caption="<i>Jᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ 🔐</i>",
                 parse_mode=ParseMode.HTML,
                 reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton("Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ", url=invite_link.invite_link)
+                    InlineKeyboardButton("❆ Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ❆", url=invite_link.invite_link)
                 ]]
                 )
             )
         else:
             ver = await message.reply_text(
-                text = "<i>Jᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ </i>",
+                text = "<i>Jᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ 🔐</i>",
                 reply_markup=InlineKeyboardMarkup(
                     [[
-                        InlineKeyboardButton(" Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ", url=invite_link.invite_link)
+                        InlineKeyboardButton("❆ Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ❆", url=invite_link.invite_link)
                     ]]
                 ),
                 parse_mode=ParseMode.HTML
@@ -83,23 +81,21 @@ async def is_user_joined(bot, message: Message):
 
 async def gen_link(_id):
     file_info = await db.get_file(_id)
-    try:
-        file_name = (file_info['file_name'])
-        file_name = await process_text(file_name)
-    except:
-        file_name = file_info['file_name']
+    file_name = file_info['file_name']
     file_size = humanbytes(file_info['file_size'])
     mime_type = file_info['mime_type']
 
     page_link = f"{Server.URL}watch/{_id}"
     stream_link = f"{Server.URL}dl/{_id}"
-    file_link = f"https://t.me/{FileStream.username}?start=file_{_id}"
+    file_link = f"https://t.me/{Ashu.username}?start=file_{_id}"
 
     if "video" in mime_type:
-        stream_text = LANG.STREAM_TEXT.format(file_name, file_size, stream_link, page_link)
+        stream_text = LANG.STREAM_TEXT.format(file_name, file_size, stream_link, page_link, file_link)
         reply_markup = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("ᴅᴏᴡɴʟᴏᴀᴅ  📂", url=stream_link),InlineKeyboardButton("sᴛʀᴇᴀᴍ  ⚡", url=page_link) ]
+                [InlineKeyboardButton("sᴛʀᴇᴀᴍ", url=page_link), InlineKeyboardButton("ᴅᴏᴡɴʟᴏᴀᴅ", url=stream_link)],
+                [InlineKeyboardButton("ɢᴇᴛ ғɪʟᴇ", url=file_link), InlineKeyboardButton("ʀᴇᴠᴏᴋᴇ ғɪʟᴇ", callback_data=f"msgdelpvt_{_id}")],
+                [InlineKeyboardButton("ᴄʟᴏsᴇ", callback_data="close")]
             ]
         )
     else:
@@ -123,7 +119,7 @@ async def gen_linkx(m:Message , _id, name: list):
 
     page_link = f"{Server.URL}watch/{_id}"
     stream_link = f"{Server.URL}dl/{_id}"
-    file_link = f"https://t.me/{FileStream.username}?start=file_{_id}"
+    file_link = f"https://t.me/{Ashu.username}?start=file_{_id}"
 
     if "video" in mime_type:
         stream_text= LANG.STREAM_TEXT_X.format(file_name, file_size, stream_link, page_link)
@@ -205,11 +201,11 @@ async def is_channel_exist(bot, message):
         )
 
 async def verify_user(bot, message):
-    # if not await is_user_authorized(message):
-    #     return False
+    if not await is_user_authorized(message):
+        return False
 
-    # if await is_user_banned(message):
-    #     return False
+    if await is_user_banned(message):
+        return False
 
     await is_user_exist(bot, message)
 
@@ -218,88 +214,3 @@ async def verify_user(bot, message):
             return False
 
     return True
-
-async def process_text(html_caption,file_name = False):
-            if html_caption:
-                if not file_name:
-                    # Convert HTML to plain text
-                    soup = BeautifulSoup(html_caption, 'html.parser')
-                    text_caption = soup.get_text()
-                else:
-                    text_caption = html_caption
-                # Lowercase the text
-                text_caption = text_caption.lower()
-
-                # Replace certain characters with spaces
-                text_caption = re.sub(r"[.]", " ", text_caption)
-
-                # Remove words starting with '@' and length less than or equal to 15
-                text_caption = re.sub(r'@\w{1,20}\b', '', text_caption)
-
-                # Remove URL links
-                text_caption = re.sub(r'http[s]?://\S+', '', text_caption)
-
-                # Remove Telegram links
-                text_caption = re.sub(r'\bhttps?://t\.me/\S+\b', '', text_caption)
-
-                # Remove links of the format https://t.me/joinchat/...
-                text_caption = re.sub(r'https://t\.me/joinchat/\S+', '', text_caption)
-
-                text_caption = re.sub(r'http\S+', '', text_caption)
-
-                # Replace certain characters with spaces
-                text_caption = re.sub(r"[@!$ _\-.+:*#⁓|\[\]]", " ", text_caption)
-
-                # Insert space between 's' and 'e' in patterns like 's01e04'
-                text_caption = re.sub(r's(\d+)e(\d+)', r's\1 e\2', text_caption, flags=re.IGNORECASE)
-
-                # Insert space between 's' and 'e' in patterns like 's1e4'
-                text_caption = re.sub(r's(\d+)e', r's\1 e', text_caption, flags=re.IGNORECASE)
-
-                # Convert 'ep' followed by a number to 'e' followed by that number with leading zeros
-                text_caption = re.sub(r'\bep(\d+)\b', r'e\1', text_caption, flags=re.IGNORECASE)
-                text_caption = re.sub(r'\bep (\d)\b', r'e0\1', text_caption, flags=re.IGNORECASE)
-                text_caption = re.sub(r'\bep (\d{2,})\b', r'e\1', text_caption, flags=re.IGNORECASE)
-
-                 # Convert single-digit 'e' to two-digit 'e'
-                text_caption = re.sub(r'\be(\d)\b', r'e0\1', text_caption, flags=re.IGNORECASE)
-
-                # Convert single-digit 's' to two-digit 's'
-                text_caption = re.sub(r'\bs(\d)\b', r's0\1', text_caption, flags=re.IGNORECASE)
-
-                # Formatting for season and episode numbers (padding with zeros)
-                text_caption = re.sub(r'\bseason (\d+)\b', lambda x: f's{x.group(1).zfill(2)}', text_caption, flags=re.IGNORECASE)
-                text_caption = re.sub(r'\bepisode (\d+)\b', lambda x: f'e{x.group(1).zfill(2)}', text_caption, flags=re.IGNORECASE)
-
-                #testing
-                text_caption = ' '.join(['e' + word[2:] if word.startswith('e0') and word[2:].isdigit() and len(word) >= 4 else word for word in text_caption.split()])
-
-                words_to_remove = ["download", "team", "link","join","m2links","mkv","mkvcinemas","uploaded","Toonworld4all","Primefix","kayoanime","uploaded by","VegaMoviesX","cinearcade","cinehud"]
-
-                # Create a regular expression pattern with all words to remove
-                pattern = r'\b(?:' + '|'.join(re.escape(word) for word in words_to_remove) + r')\b'
-
-                # Remove the specified words in a case-insensitive manner
-                text_caption = re.sub(pattern, '', text_caption, flags=re.IGNORECASE)
-
-                # Remove extra spaces between words
-                text_caption = re.sub(r'\s+', ' ', text_caption)
-
-                text_caption = text_caption.replace("हिंदी", "hindi").replace("తెలుగు", "telugu").replace("தமிழ்", "tamil").replace("ಕನ್ನಡ", "kannada").replace("മലയാളം", "malayalam")
-
-                # Replace language abbreviations using a dictionary
-                language_abbreviations = {"hin": "hindi", "eng": "english", "tam": "tamil", "tel": "telugu", "kan": "kannada", "mal": "malayalam", "mar": "marathi", "complete": "combined","2160p":"4k","completed":"combined","all episodes":"combined"}
-                text_caption = re.sub(
-                    r"\b(?:hin|eng|tam|tel|kan|mal|mar|complete|2160p|completed|all\s*episodes)\b",
-                    lambda match: language_abbreviations.get(match.group(0), match.group(0)),
-                    text_caption
-                )
-
-                text_caption = text_caption.title()
-                # Convert back to HTML
-                html_soup = BeautifulSoup(text_caption, 'html.parser')
-                html_caption = str(html_soup)
-
-                return html_caption
-            else:
-                return None

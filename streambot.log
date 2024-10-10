@@ -1,0 +1,77 @@
+[10/10/2024 15:15:11] {/home/codespace/.local/lib/python3.12/site-packages/pyrogram/dispatcher.py:376} ERROR - Telegram says: [400 BUTTON_URL_INVALID] (caused by "messages.SendMessage") Pyrogram 2.3.48 thinks: The button url is invalid
+Traceback (most recent call last):
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/dispatcher.py", line 363, in handler_worker
+    await handler.callback(self.client, *args)
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/handlers/message_handler.py", line 154, in resolve_future_or_callback
+    await self.original_callback(client, message, *args)
+  File "/workspaces/Permanent-bot/Ashu/bot/plugins/stream.py", line 41, in private_receive_handler
+    await message.reply_text(
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/types/messages_and_media/message.py", line 1482, in reply_text
+    return await self._client.send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/methods/messages/send_message.py", line 200, in send_message
+    r = await self.invoke(rpc)
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/methods/advanced/invoke.py", line 80, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/session/session.py", line 420, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/session/session.py", line 377, in send
+    RPCError.raise_it(result, type(data))
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/errors/rpc_error.py", line 93, in raise_it
+    raise getattr(
+pyrogram.errors.exceptions.bad_request_400.ButtonUrlInvalid: Telegram says: [400 BUTTON_URL_INVALID] (caused by "messages.SendMessage") Pyrogram 2.3.48 thinks: The button url is invalid
+[10/10/2024 15:16:03] {/home/codespace/.local/lib/python3.12/site-packages/pyrogram/dispatcher.py:376} ERROR - Telegram says: [400 BUTTON_URL_INVALID] (caused by "messages.SendMessage") Pyrogram 2.3.48 thinks: The button url is invalid
+Traceback (most recent call last):
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/dispatcher.py", line 363, in handler_worker
+    await handler.callback(self.client, *args)
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/handlers/message_handler.py", line 154, in resolve_future_or_callback
+    await self.original_callback(client, message, *args)
+  File "/workspaces/Permanent-bot/Ashu/bot/plugins/stream.py", line 41, in private_receive_handler
+    await message.reply_text(
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/types/messages_and_media/message.py", line 1482, in reply_text
+    return await self._client.send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/methods/messages/send_message.py", line 200, in send_message
+    r = await self.invoke(rpc)
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/methods/advanced/invoke.py", line 80, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/session/session.py", line 420, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/session/session.py", line 377, in send
+    RPCError.raise_it(result, type(data))
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/errors/rpc_error.py", line 93, in raise_it
+    raise getattr(
+pyrogram.errors.exceptions.bad_request_400.ButtonUrlInvalid: Telegram says: [400 BUTTON_URL_INVALID] (caused by "messages.SendMessage") Pyrogram 2.3.48 thinks: The button url is invalid
+[10/10/2024 15:16:46] {/home/codespace/.local/lib/python3.12/site-packages/pyrogram/dispatcher.py:376} ERROR - Telegram says: [400 BUTTON_URL_INVALID] (caused by "messages.SendMessage") Pyrogram 2.3.48 thinks: The button url is invalid
+Traceback (most recent call last):
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/dispatcher.py", line 363, in handler_worker
+    await handler.callback(self.client, *args)
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/handlers/message_handler.py", line 154, in resolve_future_or_callback
+    await self.original_callback(client, message, *args)
+  File "/workspaces/Permanent-bot/Ashu/bot/plugins/stream.py", line 41, in private_receive_handler
+    await message.reply_text(
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/types/messages_and_media/message.py", line 1482, in reply_text
+    return await self._client.send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/methods/messages/send_message.py", line 200, in send_message
+    r = await self.invoke(rpc)
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/methods/advanced/invoke.py", line 80, in invoke
+    r = await self.session.invoke(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/session/session.py", line 420, in invoke
+    return await self.send(query, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/session/session.py", line 377, in send
+    RPCError.raise_it(result, type(data))
+  File "/home/codespace/.local/lib/python3.12/site-packages/pyrogram/errors/rpc_error.py", line 93, in raise_it
+    raise getattr(
+pyrogram.errors.exceptions.bad_request_400.ButtonUrlInvalid: Telegram says: [400 BUTTON_URL_INVALID] (caused by "messages.SendMessage") Pyrogram 2.3.48 thinks: The button url is invalid
+[10/10/2024 15:17:01] {/home/codespace/.local/lib/python3.12/site-packages/pyrogram/methods/utilities/idle.py:76} INFO - Stop signal received (SIGINT). Exiting...
+[10/10/2024 15:19:21] {/home/codespace/.local/lib/python3.12/site-packages/pyrogram/methods/utilities/idle.py:76} INFO - Stop signal received (SIGINT). Exiting...

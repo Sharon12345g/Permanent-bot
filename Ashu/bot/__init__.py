@@ -5,14 +5,14 @@ if Telegram.SECONDARY:
     plugins=None
     no_updates=True
 else:    
-    plugins={"root": "FileStream/bot/plugins"}
+    plugins={"root": "Ashu/bot/plugins"}
     no_updates=None
 
-FileStream = Client(
-    name="FileStream",
+Ashu = Client(
+    name="Ashu",
     api_id=Telegram.API_ID,
     api_hash=Telegram.API_HASH,
-    workdir="FileStream",
+    workdir="Ashu",
     plugins=plugins,
     bot_token=Telegram.BOT_TOKEN,
     sleep_threshold=Telegram.SLEEP_THRESHOLD,

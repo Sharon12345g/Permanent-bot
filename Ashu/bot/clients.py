@@ -3,7 +3,7 @@ import logging
 from os import environ
 from ..config import Telegram
 from pyrogram import Client
-from . import multi_clients, work_loads, FileStream
+from . import multi_clients, work_loads, Ashu
 
 
 async def initialize_clients():
@@ -16,7 +16,7 @@ async def initialize_clients():
         )
     )
     if not all_tokens:
-        multi_clients[0] = FileStream
+        multi_clients[0] = Ashu
         work_loads[0] = 0
         print("No additional clients found, using default client")
         return

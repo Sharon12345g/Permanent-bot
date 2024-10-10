@@ -7,9 +7,9 @@ from typing import Any, Optional
 from pyrogram.enums import ParseMode, ChatType
 from pyrogram.types import Message
 from pyrogram.file_id import FileId
-from FileStream.bot import FileStream
-from FileStream.utils.database import Database
-from FileStream.config import Telegram, Server
+from Ashu.bot import Ashu
+from Ashu.utils.database import Database
+from Ashu.config import Telegram, Server
 
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
@@ -19,7 +19,7 @@ async def get_file_ids(client: Client | bool, db_id: str, multi_clients, message
     file_info = await db.get_file(db_id)
     if (not "file_ids" in file_info) or not client:
         logging.debug("Storing file_id of all clients in DB")
-        log_msg = await send_file(FileStream, db_id, file_info['file_id'], message)
+        log_msg = await send_file(Ashu, db_id, file_info['file_id'], message)
         await db.update_file_ids(db_id, await update_file_id(log_msg.id, multi_clients))
         logging.debug("Stored file_id of all clients in DB")
         if not client:
@@ -29,7 +29,7 @@ async def get_file_ids(client: Client | bool, db_id: str, multi_clients, message
     file_id_info = file_info.setdefault("file_ids", {})
     if not str(client.id) in file_id_info:
         logging.debug("Storing file_id in DB")
-        log_msg = await send_file(FileStream, db_id, file_info['file_id'], message)
+        log_msg = await send_file(Ashu, db_id, file_info['file_id'], message)
         msg = await client.get_messages(Telegram.FLOG_CHANNEL, log_msg.id)
         media = get_media_from_message(msg)
         file_id_info[str(client.id)] = getattr(media, "file_id", "")

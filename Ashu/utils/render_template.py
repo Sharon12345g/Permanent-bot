@@ -1,9 +1,9 @@
 import aiohttp
 import jinja2
 import urllib.parse
-from FileStream.config import Telegram, Server
-from FileStream.utils.database import Database
-from FileStream.utils.human_readable import humanbytes
+from Ashu.config import Telegram, Server
+from Ashu.utils.database import Database
+from Ashu.utils.human_readable import humanbytes
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
 async def render_page(db_id):
@@ -13,9 +13,9 @@ async def render_page(db_id):
     file_name = file_data['file_name'].replace("_", " ")
 
     if str((file_data['mime_type']).split('/')[0].strip()) == 'video':
-        template_file = "FileStream/template/play.html"
+        template_file = "Ashu/template/opleechplay.html"
     else:
-        template_file = "FileStream/template/dl.html"
+        template_file = "Ashu/template/dl.html"
         async with aiohttp.ClientSession() as s:
             async with s.get(src) as u:
                 file_size = humanbytes(int(u.headers.get('Content-Length')))

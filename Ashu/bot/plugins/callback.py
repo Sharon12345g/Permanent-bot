@@ -1,25 +1,25 @@
 import datetime
 import math
-from FileStream import __version__
-from FileStream.bot import FileStream
-from FileStream.config import Telegram, Server
-from FileStream.utils.translation import LANG, BUTTON
-from FileStream.utils.bot_utils import gen_link
-from FileStream.utils.database import Database
-from FileStream.utils.human_readable import humanbytes
-from FileStream.server.exceptions import FIleNotFound
+from Ashu import __version__
+from Ashu.bot import Ashu
+from Ashu.config import Telegram, Server
+from Ashu.utils.translation import LANG, BUTTON
+from Ashu.utils.bot_utils import gen_link
+from Ashu.utils.database import Database
+from Ashu.utils.human_readable import humanbytes
+from Ashu.server.exceptions import FIleNotFound
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram.file_id import FileId, FileType, PHOTO_TYPES
 from pyrogram.enums.parse_mode import ParseMode
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
 #---------------------[ START CMD ]---------------------#
-@FileStream.on_callback_query()
+@Ashu.on_callback_query()
 async def cb_data(bot, update: CallbackQuery):
     usr_cmd = update.data.split("_")
     if usr_cmd[0] == "home":
         await update.message.edit_text(
-            text=LANG.START_TEXT.format(update.from_user.mention, FileStream.username),
+            text=LANG.START_TEXT.format(update.from_user.mention, Ashu.username),
             disable_web_page_preview=True,
             reply_markup=BUTTON.START_BUTTONS
         )
@@ -31,7 +31,7 @@ async def cb_data(bot, update: CallbackQuery):
         )
     elif usr_cmd[0] == "about":
         await update.message.edit_text(
-            text=LANG.ABOUT_TEXT.format(FileStream.fname, __version__),
+            text=LANG.ABOUT_TEXT.format(Ashu.fname, __version__),
             disable_web_page_preview=True,
             reply_markup=BUTTON.ABOUT_BUTTONS
         )
@@ -195,4 +195,3 @@ async def delete_user_filex(_id, update:CallbackQuery):
             caption= "**Fɪʟᴇ Dᴇʟᴇᴛᴇᴅ Sᴜᴄᴄᴇssғᴜʟʟʏ !**\n\n",
             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("ᴄʟᴏsᴇ", callback_data=f"close")]])
         )
-

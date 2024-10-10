@@ -6,11 +6,11 @@ import asyncio
 import aiofiles
 import datetime
 
-from FileStream.utils.broadcast_helper import send_msg
-from FileStream.utils.database import Database
-from FileStream.bot import FileStream
-from FileStream.server.exceptions import FIleNotFound
-from FileStream.config import Telegram, Server
+from Ashu.utils.broadcast_helper import send_msg
+from Ashu.utils.database import Database
+from Ashu.bot import Ashu
+from Ashu.server.exceptions import FIleNotFound
+from Ashu.config import Telegram, Server
 from pyrogram import filters, Client
 from pyrogram.types import Message
 from pyrogram.enums.parse_mode import ParseMode
@@ -19,62 +19,56 @@ db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 broadcast_ids = {}
 
 
-@FileStream.on_message(filters.command("status") & filters.private & filters.user(Telegram.OWNER_ID))
+@Ashu.on_message(filters.command("status") & filters.private & filters.user(Telegram.OWNER_ID))
 async def sts(c: Client, m: Message):
     await m.reply_text(text=f"""**Total Users in DB:** `{await db.total_users_count()}`
 **Banned Users in DB:** `{await db.total_banned_users_count()}`
 **Total Links Generated: ** `{await db.total_files()}`"""
                        , parse_mode=ParseMode.MARKDOWN, quote=True)
 
-# @FileStream.on_message(filters.command("bots") & filters.private)
-# async def our_bots(c: Client, m: Message):
-#     await m.reply_text(text=f"""**Our Other Bots\n\nBot 1: @VegaMoviesiBot\nBot 2: @VegaMoviesXBot \nBot 3: @File2LinkiBot
-#     **"""
-#                        , parse_mode=ParseMode.MARKDOWN, quote=True)
+
+@Ashu.on_message(filters.command("ban") & filters.private & filters.user(Telegram.OWNER_ID))
+async def sts(b, m: Message):
+    id = m.text.split("/ban ")[-1]
+    if not await db.is_user_banned(int(id)):
+        try:
+            await db.ban_user(int(id))
+            await db.delete_user(int(id))
+            await m.reply_text(text=f"`{id}`** is Banned** ", parse_mode=ParseMode.MARKDOWN, quote=True)
+            if not str(id).startswith('-100'):
+                await b.send_message(
+                    chat_id=id,
+                    text="**Your Banned to Use The Bot**",
+                    parse_mode=ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+        except Exception as e:
+            await m.reply_text(text=f"**something went wrong: {e}** ", parse_mode=ParseMode.MARKDOWN, quote=True)
+    else:
+        await m.reply_text(text=f"`{id}`** is Already Banned** ", parse_mode=ParseMode.MARKDOWN, quote=True)
 
 
-#@FileStream.on_message(filters.command("ban") & filters.private & filters.user(Telegram.OWNER_ID))
-#async def sts(b, m: Message):
-#    id = m.text.split("/ban ")[-1]
-#    if not await db.is_user_banned(int(id)):
-#        try:
-#            await db.ban_user(int(id))
-#            await db.delete_user(int(id))
-#            await m.reply_text(text=f"`{id}`** is Banned** ", parse_mode=ParseMode.MARKDOWN, quote=True)
-#            if not str(id).startswith('-100'):
-#                await b.send_message(
-#                    chat_id=id,
-#                    text="**Your Banned to Use The Bot**",
-#                    parse_mode=ParseMode.MARKDOWN,
-#                    disable_web_page_preview=True
-#                )
-#        except Exception as e:
-#            await m.reply_text(text=f"**something went wrong: {e}** ", parse_mode=ParseMode.MARKDOWN, quote=True)
-#    else:
-#        await m.reply_text(text=f"`{id}`** is Already Banned** ", parse_mode=ParseMode.MARKDOWN, quote=True)
+@Ashu.on_message(filters.command("unban") & filters.private & filters.user(Telegram.OWNER_ID))
+async def sts(b, m: Message):
+    id = m.text.split("/unban ")[-1]
+    if await db.is_user_banned(int(id)):
+        try:
+            await db.unban_user(int(id))
+            await m.reply_text(text=f"`{id}`** is Unbanned** ", parse_mode=ParseMode.MARKDOWN, quote=True)
+            if not str(id).startswith('-100'):
+                await b.send_message(
+                    chat_id=id,
+                    text="**Your Unbanned now Use can use The Bot**",
+                    parse_mode=ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+        except Exception as e:
+            await m.reply_text(text=f"** something went wrong: {e}**", parse_mode=ParseMode.MARKDOWN, quote=True)
+    else:
+        await m.reply_text(text=f"`{id}`** is not Banned** ", parse_mode=ParseMode.MARKDOWN, quote=True)
 
 
-#@FileStream.on_message(filters.command("unban") & filters.private & filters.user(Telegram.OWNER_ID))
-#async def sts(b, m: Message):
-#    id = m.text.split("/unban ")[-1]
-#    if await db.is_user_banned(int(id)):
-#        try:
-#            await db.unban_user(int(id))
-#            await m.reply_text(text=f"`{id}`** is Unbanned** ", parse_mode=ParseMode.MARKDOWN, quote=True)
-#            if not str(id).startswith('-100'):
-#                await b.send_message(
-#                    chat_id=id,
-#                    text="**Your Unbanned now Use can use The Bot**",
-#                    parse_mode=ParseMode.MARKDOWN,
-#                    disable_web_page_preview=True
-#                )
-#        except Exception as e:
-#            await m.reply_text(text=f"** something went wrong: {e}**", parse_mode=ParseMode.MARKDOWN, quote=True)
-#    else:
-#        await m.reply_text(text=f"`{id}`** is not Banned** ", parse_mode=ParseMode.MARKDOWN, quote=True)
-
-
-@FileStream.on_message(filters.command("broadcast") & filters.private & filters.user(Telegram.OWNER_ID) & filters.reply)
+@Ashu.on_message(filters.command("broadcast") & filters.private & filters.user(Telegram.OWNER_ID) & filters.reply)
 async def broadcast_(c, m):
     all_users = await db.get_all_users()
     broadcast_msg = m.reply_to_message
@@ -144,7 +138,7 @@ async def broadcast_(c, m):
     os.remove('broadcast.txt')
 
 
-@FileStream.on_message(filters.command("del") & filters.private & filters.user(Telegram.OWNER_ID))
+@Ashu.on_message(filters.command("del") & filters.private & filters.user(Telegram.OWNER_ID))
 async def sts(c: Client, m: Message):
     file_id = m.text.split(" ")[-1]
     try:

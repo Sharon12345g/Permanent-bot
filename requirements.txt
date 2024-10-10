@@ -7,6 +7,3 @@ aiofiles
 dnspython
 requests
 jinja2
-Pyrogram==2.0.106
-bs4
-beautifulsoup4

@@ -3,13 +3,13 @@ import asyncio
 import logging
 import traceback
 import logging.handlers as handlers
-from FileStream.config import Telegram, Server
+from Ashu.config import Telegram, Server
 from aiohttp import web
 from pyrogram import idle
 
-from FileStream.bot import FileStream
-from FileStream.server import web_server
-from FileStream.bot.clients import initialize_clients
+from Ashu.bot import Ashu
+from Ashu.server import web_server
+from Ashu.bot.clients import initialize_clients
 
 logging.basicConfig(
     level=logging.INFO,
@@ -36,11 +36,11 @@ async def start_services():
     print("-------------------- Initializing Telegram Bot --------------------")
 
 
-    await FileStream.start()
-    bot_info = await FileStream.get_me()
-    FileStream.id = bot_info.id
-    FileStream.username = bot_info.username
-    FileStream.fname=bot_info.first_name
+    await Ashu.start()
+    bot_info = await Ashu.get_me()
+    Ashu.id = bot_info.id
+    Ashu.username = bot_info.username
+    Ashu.fname=bot_info.first_name
     print("------------------------------ DONE ------------------------------")
     print()
     print("---------------------- Initializing Clients ----------------------")
@@ -62,7 +62,7 @@ async def start_services():
 
 async def cleanup():
     await server.cleanup()
-   
+    await Ashu.stop()
 
 if __name__ == "__main__":
     try:
@@ -73,3 +73,5 @@ if __name__ == "__main__":
         logging.error(traceback.format_exc())
     finally:
         loop.run_until_complete(cleanup())
+        loop.stop()
+        print("------------------------ Stopped Services ------------------------")

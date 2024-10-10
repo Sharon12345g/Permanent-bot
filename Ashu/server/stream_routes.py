@@ -5,11 +5,11 @@ import mimetypes
 import traceback
 from aiohttp import web
 from aiohttp.http_exceptions import BadStatusLine
-from FileStream.bot import multi_clients, work_loads, FileStream
-from FileStream.config import Telegram, Server
-from FileStream.server.exceptions import FIleNotFound, InvalidHash
-from FileStream import utils, StartTime, __version__
-from FileStream.utils.render_template import render_page
+from Ashu.bot import multi_clients, work_loads, Ashu
+from Ashu.config import Telegram, Server
+from Ashu.server.exceptions import FIleNotFound, InvalidHash
+from Ashu import utils, StartTime, __version__
+from Ashu.utils.render_template import render_page
 
 routes = web.RouteTableDef()
 
@@ -19,7 +19,7 @@ async def root_route_handler(_):
         {
             "server_status": "running",
             "uptime": utils.get_readable_time(time.time() - StartTime),
-            "telegram_bot": "@" + FileStream.username,
+            "telegram_bot": "@" + Ashu.username,
             "connected_bots": len(multi_clients),
             "loads": dict(
                 ("bot" + str(c + 1), l)

@@ -1,7 +1,7 @@
 import asyncio
 import logging
 from typing import Dict, Union
-from FileStream.bot import work_loads
+from Ashu.bot import work_loads
 from pyrogram import Client, utils, raw
 from .file_properties import get_file_ids
 from pyrogram.session import Session, Auth
@@ -153,9 +153,7 @@ class ByteStreamer:
         chunk_size: int,
     ) -> Union[str, None]:
         """
-        Custom generator that yields the bytes of the media file.
-        Modded from <https://github.com/eyaadh/megadlbot_oss/blob/master/mega/telegram/utils/custom_download.py#L20>
-        Thanks to Eyaadh <https://github.com/eyaadh>
+#404 @BotzPW
         """
         client = self.client
         work_loads[index] += 1
