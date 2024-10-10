@@ -179,9 +179,7 @@ PORT = 8080
 
 </details>
 
-### ❤️ To :
 
-- [**SudoR2spr**](https://github.com/SudoR2spr/AshuBot) : for his [AshuBot](https://github.com/SudoR2spr/AshuBot)
 
 ---
 
