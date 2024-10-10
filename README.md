@@ -3,10 +3,10 @@
 
 
 
-### 🍁 About :
+### 🍁 CMD:
 
 
-
+```
 start - To check the bot is alive or not.
 help - To Get Help Message.
 about- To check About the Bot.
