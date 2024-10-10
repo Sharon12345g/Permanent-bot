@@ -1,19 +1,12 @@
 <h1 align="center">AshuBot</h1>
-<p align="center">
-  <a href="https://github.com/SudoR2spr/AshuBot">
-    <img src="https://graph.org/file/fff4ea35f47dce9626c69.jpg" alt="Cover Image" width="550">
-  </a>
-</p>  
+
 
 
 
 ### 🍁 About :
 
-<p align="center">
-    <a href="https://github.com/SudoR2spr/AshuBot">
-        <img src="https://i.ibb.co/zSP9QNQ/Dl.png" height="100" width="100" alt="AshuBot Logo">
-    </a>
-</p>
+
+
 <p align='center'>
   This bot provides stream links for Telegram files without the necessity of waiting for the download to complete, offering the ability to store files.
 </p>
@@ -42,7 +35,6 @@
 <br>
 
 ```sh
-git clone https://github.com/SudoR2spr/AshuBot
 cd AshuBot
 python3 -m venv ./venv
 . ./venv/bin/activate
